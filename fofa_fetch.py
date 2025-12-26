@@ -405,8 +405,16 @@ def push_all_files():
 # ===============================
 # 主执行逻辑
 if __name__ == "__main__":
+    # 确保目录存在
+    os.makedirs(IP_DIR, exist_ok=True)
+    os.makedirs(RTP_DIR, exist_ok=True)
+
     run_count = first_stage()
-    if run_count in [12, 24, 36, 48, 60, 72]:
+
+    if run_count % 10 == 0:
         second_stage()
         third_stage()
+    else:
+        print("ℹ️ 本次不是 10 的倍数，跳过第二、三阶段")
+
     push_all_files()
